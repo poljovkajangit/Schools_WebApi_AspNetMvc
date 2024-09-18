@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandLineArgs": "seeddata",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "schoolwebapi": "StartDebugging"
+      }
+    }
+  }
+}

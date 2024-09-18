@@ -1,0 +1,94 @@
+
+
+DATABASE:
+--------------------------------
+delete \Migration
+start Package Manager Console
+Add-Migration InitialCreate
+Update-Database
+
+Add-Migration [some_change_upd]
+Update-Database
+
+dotnet ef database update // in PowerShell
+
+VS Terminal Window - Developer PowerShell (VS Embedded)
+-------------------------------------------------------
+dotnet ef migrations add [uniqeu_name]
+dotnet ef database update
+
+Use stored procedure i EF
+-------------------------------
+https://www.entityframeworktutorial.net/efcore/working-with-stored-procedure-in-ef-core.aspx
+
+To install the dotnet-ef tool, run the following command:
+--------------------------------------------------------
+dotnet tool install --global dotnet-ef --version 8.*
+
+Seeding data to DB:
+--------------------
+start PowerShell terminal
+cd project_folder
+dotnet run seeddata ("seeddata is arg in program->main" | Project props -> Debug -> Command line arguments)
+
+
+Real-time build (hot reloads):
+------------------------------
+dotnet watch run .\SchoolWebApi.csproj  //delete generated solution files if in same folder as project 
+
+
+Real-time build (hot reloads):
+------------------------------
+dotnet SchoolWebApi.dll --environment Development --profile "http"
+http://localhost:5000/swagger/index.html
+http://localhost:5000/api/city/getall
+
+ 
+DOCKER - terminal commands
+-----------------------------
+//build image -t is for name
+docker build -t <schoolwebapi_image1>:<v1> .
+
+//show images
+docker images
+
+//run container from image, port 8080 is exposed in dockerfile, send request to post 5011
+docker run --name <schoolwebapi_container1> -p 5011:8080 --rm -d <schoolwebapi_image1:<tag>>
+docker ps -a //show all docker containers
+docker stop schoolwebapi_container1
+docker start schoolwebapi_container1
+
+//create container with volume -> source folder will synced with /app in container
+//docker run --name schoolwebapi_c1 -p 5011:8080 --rm -v C:\Test\School.WebAPI\SchoolWebApi:/app schoolwebapi_image1
+
+//remove all
+docker system prune -a 
+
+//docker run --name schoolwebapi_c1 -p 5011:8080 --rm -v C:\Test\School.WebAPI\SchoolWebApi\bin\Debug\net8.0:/app/bin/Debug/net8.0  schoolwebapi_image1
+
+//docker-compose
+docker-compose up -d
+
+//publish to docker hub
+docker login
+docker tag schoolwebapi poljovkajandc/webapischool
+docker push poljovkajandc/webapischool:<tag> //poljovkajandc/webapischool should be created on hub
+docker pull poljovkajandc/webapischool:<tag>>
+
+
+GIT - GITHub
+------------------
+git --version
+where.exe git
+git init // initialize repository - this creates .git subfolder
+git commit -m "commit desc"
+Login Account Button> Publish Branch button in VSCode ... with SignIn on existing account ... check left corner user icon for status
+
+/after changes on hub/
+
+git commit -a -m "commit desc"    
+git push
+
+/after my changes
+git pull
+or Synchronize
