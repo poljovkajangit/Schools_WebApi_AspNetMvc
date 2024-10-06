@@ -3,24 +3,27 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-#ports that container listens at runtime 
 
+#to use swagger in docker 
+ENV ASPNETCORE_ENVIRONMENT=Development
+
+#ports that container listens at runtime 
 EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-#if using docker-compose use "./SchoolWebApi/SchoolWebApi.csproj"
-COPY ["./SchoolWebApi/SchoolWebApi.csproj", "."]
+#if using docker-compose use "./Schools.WebApi/SchoolWebApi.csproj"
+COPY ["./Schools.WebApi/SchoolWebApi.csproj", "."]
 RUN dotnet restore "./SchoolWebApi.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./SchoolWebApi/SchoolWebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Schools.WebApi/SchoolWebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./SchoolWebApi/SchoolWebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Schools.WebApi/SchoolWebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

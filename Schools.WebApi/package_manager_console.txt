@@ -1,6 +1,7 @@
 
 DATABASE:
---------------------------------
+________________________________________________________________
+
 delete \Migration
 start Package Manager Console
 Add-Migration InitialCreate
@@ -21,7 +22,7 @@ Use stored procedure i EF
 https://www.entityframeworktutorial.net/efcore/working-with-stored-procedure-in-ef-core.aspx
 
 To install the dotnet-ef tool, run the following command:
---------------------------------------------------------
+-----------------------------------------------------------
 dotnet tool install --global dotnet-ef --version 8.*
 
 Seeding data to DB:
@@ -32,7 +33,7 @@ dotnet run seeddata ("seeddata is arg in program->main" | Project props -> Debug
 
 
 Real-time build (hot reloads):
-------------------------------
+________________________________________________________________
 dotnet watch run .\SchoolWebApi.csproj  //delete generated solution files if in same folder as project 
 
 
@@ -44,7 +45,7 @@ http://localhost:5000/api/city/getall
 
  
 DOCKER - terminal commands
------------------------------
+_____________________________________________________
 //build image -t is for name
 docker build -t <schoolwebapi_image1>:<v1> .
 
@@ -66,7 +67,11 @@ docker system prune -a
 //docker run --name schoolwebapi_c1 -p 5011:8080 --rm -v C:\Test\School.WebAPI\SchoolWebApi\bin\Debug\net8.0:/app/bin/Debug/net8.0  schoolwebapi_image1
 
 //docker-compose
-docker-compose up -d
+docker-compose up -d 
+
+//docker-compose with rebuild
+docker compose up -d --build <service_name_in_compose_yml>
+
 
 //publish to docker hub
 docker login

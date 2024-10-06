@@ -31,7 +31,7 @@ namespace SchoolWebApi.Controllers
         [Route("say")]
         public IActionResult say([FromQuery] string word)
         {
-            return Ok($"You said {word} ABC 7777");
+            return Ok($"You said {word} ABC 2");
         }
 
         [HttpGet]

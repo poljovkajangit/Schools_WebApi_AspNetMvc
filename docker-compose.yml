@@ -1,27 +1,31 @@
-version: '3.4'
+
+networks:
+   schoolwebapiapp:
 
 services:
-  schoolwebapi:
-    image: ${DOCKER_REGISTRY-}schoolwebapi
-    build:
-      context: .
-      dockerfile: schoolwebapi/Dockerfile              
+
   SqlServerDb:
     container_name: SqlServerContainer
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
         - 8002:1433
     environment:
         - ACCEPT_EULA=Y
         - MSSQL_SA_PASSWORD=s@password2407
-  WebApi:
-    container_name: WebApiContainer
+    networks:
+        - schoolwebapiapp 
+  SchoolsWebApi:
+    container_name: schoolswebapi-app
     image: ${DOCKER_REGISTRY-}schoolwebapi
     ports:
         - 5011:8080
     build:
         context: .
-        dockerfile: schoolwebapi/Dockerfile
+        dockerfile: Schools.WebApi/Dockerfile
+    networks:
+        - schoolwebapiapp
     depends_on:
         - SqlServerDb
+
+
 
